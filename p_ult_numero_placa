@@ -1,0 +1,18 @@
+/**********************************/
+/* Procedimiento que retorna el  **/
+/* ultimo caracter de la cadena  **/
+/* indicada por parametro        **/
+create or replace procedure p_ult_numero_placa(p_placa in varchar2,      /*Nro de Placa parametro de entrada*/
+                                               p_ult_nro in out  number, /*Ultimo digito de la Placa*/
+                                               p_error in out  varcahr2  /* parametro de salida para manejar errores*/
+                                              ) is 
+ vl_ult_dig varchar2(1);
+begin
+  p_ult_dig := substr(p_placa,length(p_placa),1);
+  /* se valida que el digito obtenido sea numérico */
+  if (p_ult_dig in ('0','1','2','3','4','5','6','7','8','9') then
+     p_ult_nro:= to_number(p_ult_dig);
+  else
+     p_error := ' Error,el nro. de Placa introducido no escorrecto, debe terminar en un número (0,1,2,3,4,5,6,7,8,9)';
+  end if;
+end;

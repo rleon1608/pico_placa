@@ -1,0 +1,21 @@
+/*************************************/
+/**Funcion que retorna el Dia de la  */
+/**Semana al que corresponde la fecha*/
+/**en formato caracter indicada por  */
+/**parametro                         */
+create or replace function f_busca_dia(p_fecha in varchar2,
+                           p_error in out varchar2) return varchar2 is 
+begin
+ declare 
+  vl_dia varchar2(20);
+ begin
+   select WEEK_DAY(p_fecha,'MM-DD-RRRR') into vl_dia from duaL;
+   return(vl_dia);
+   exception
+     when othes then 
+      p_error := sqlerrm;
+      vl_dia  := null;
+      return(vl_dia);
+ end; 
+end f_buca_dia;
+
